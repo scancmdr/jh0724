@@ -27,11 +27,6 @@ public class SimpleRentalService implements RentalService {
      */
     private final RentalAgreementCalculator calculator = new SimpleRentalAgreementMachine();
 
-    /* (non-Javadoc)
-     * @see com.cyglass.keel.load.config.Configuration#workers()
-     */
-
-
     /**
      * Compute the rental agreement
      *
