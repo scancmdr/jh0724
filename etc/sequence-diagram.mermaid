@@ -1,0 +1,13 @@
+sequenceDiagram
+    participant Clerk
+    participant Main
+    participant Controller
+    participant RentalService
+
+    Clerk->>Main: Validate Inputs
+    Main->>Main: Build Rental Model
+    Main->>Controller: Submit model
+    Controller->>RentalService: Compute Rental Agreement
+    RentalService-->>Controller: Rental Agreement
+    Controller-->>Main: Return Rental Agreement
+    Main->>Clerk: Output Rental Agreement

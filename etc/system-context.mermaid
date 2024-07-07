@@ -1,0 +1,36 @@
+C4Context
+    title System Context diagram for Tool Time
+    Enterprise_Boundary(CustomerBoundary, "CustomerBoundary") {
+        Person(StoreClerk, "Store Clerk", "A clerk working at the rental desk at a store.")
+        Person_Ext(Customer, "Rental Customer", "A customer renting a tool")
+
+        Enterprise_Boundary(ToolRentalSystem, "Tool Rental System", "Computes rental agreements for customers wanting to rent tools.") {
+            System(Main, "Main", "Application Entry Point.")
+            System(Controller, "Controller", "Business logic controller.")
+
+            System_Boundary(ServiceLayer, "Service Layer") {
+                System(RentalService, "Rental Service", "Services for computing Rental Agreements.")
+                System(ConfigurationService, "Configuration Service", "Services for system configuration and settings.")
+                System(DataService, "Data Service", "Service for abstracting data store access.")
+                SystemDb(Data, "Datastore", "Tool and charge datasets.")
+            }
+        }
+    }
+
+    BiRel(Customer, StoreClerk, "Interacts")
+    BiRel(StoreClerk, Main, "Uses")
+    Rel(Main, Controller, "Delegates computation")
+    Rel(Controller, RentalService, "Delegates computation", "API")
+    Rel(Controller, DataService, "Tool & charge data", "API")
+    Rel(Controller, ConfigurationService, "Obtains configuration settings", "API")
+    Rel(RentalService, DataService, "Accesses tool & charge data")
+    Rel(RentalService, ConfigurationService, "Obtains configuration settings")
+    Rel(DataService, Data, "Obtains tool & charge definitions")
+    UpdateElementStyle(Customer, $fontColor="white", $bgColor="grey", $borderColor="red")
+    UpdateRelStyle(Customer, StoreClerk, $textColor="blue", $lineColor="blue", $offsetX="5")
+    UpdateRelStyle(StoreClerk, ToolRentalSystem, $textColor="blue", $lineColor="blue", $offsetY="-10")
+    UpdateRelStyle(Controller, ServiceLayer, $textColor="blue", $lineColor="blue", $offsetY="-40", $offsetX="-50")
+    UpdateRelStyle(ServiceLayer, DataService, $textColor="red", $lineColor="red", $offsetX="-50", $offsetY="20")
+    UpdateLayoutConfig($c4ShapeInRow="2", $c4BoundaryInRow="3")
+
+
